@@ -9,6 +9,10 @@
     font-weight: 600;
 }
 
+#navbarSupportedContent ul li::first-letter{
+    color: red;
+}
+
 .btn-success a{
     color: #ffff!important;
     display: flex;

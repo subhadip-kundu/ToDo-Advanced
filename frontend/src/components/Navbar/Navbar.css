@@ -4,13 +4,13 @@
 }
 
 .list-items{
-    width: 100px;
-    padding: 5px 0;
+    width: 90px;
+    padding: 3px 0;
     font-weight: 600;
 }
 
 .btn-success a{
-    color: #f0f8ff!important;
+    color: #ffff!important;
     display: flex;
     align-items: center;
     justify-content: center;

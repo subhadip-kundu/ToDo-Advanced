@@ -5,7 +5,7 @@ import avatar from '../../assets/avatar.png'
 
 function Navbar() {
     return (
-        <div>
+        <div className='py-2'>
             <nav className="navbar navbar-expand-lg">
                 <div className="container">
                     <a className="navbar-brand text-danger d-flex align-items-center gap-2" href="#"><FaBook /><b>TODO</b></a>
@@ -19,6 +19,9 @@ function Navbar() {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link active list-items" aria-current="page" href="#">About us</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link active list-items" aria-current="page" href="#">Todo</a>
                             </li>
                             <li className="nav-item btn btn-success">
                                 <a className="nav-link active list-items" aria-current="page" href="#">Signup</a>

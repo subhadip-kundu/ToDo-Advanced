@@ -6,7 +6,7 @@
 .list-items{
     width: 90px;
     padding: 3px 0;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 #navbarSupportedContent ul li::first-letter{

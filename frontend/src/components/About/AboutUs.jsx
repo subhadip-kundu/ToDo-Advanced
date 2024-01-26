@@ -8,7 +8,7 @@ const AboutUs = () => {
   return (
     <div className="about-us">
       <Container>
-        <Row className="intro-section mb-2 mt-5">
+        <Row className="intro-section mb-2 mt-2">
           <Col>
             <h1 id='heading-about-us' className="text-center text-danger">About Me</h1>
             <p className="lead text-center">

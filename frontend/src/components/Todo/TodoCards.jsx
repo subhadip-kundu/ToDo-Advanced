@@ -2,7 +2,7 @@ import React from 'react'
 import { GrDocumentUpdate } from "react-icons/gr";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-function TodoCards({ title, body, id }) {
+function TodoCards({ title, body, id, delid,display }) {
 
     return (
         <div className='px-3 pt-3 pb-1 card-wrapper'>
@@ -13,10 +13,10 @@ function TodoCards({ title, body, id }) {
                     ...</p>
             </div>
             <div className="d-flex justify-content-end align-items-center gap-1 px-1">
-                <div>
+                <div onClick={() => { display("flex"); }}>
                     <GrDocumentUpdate className='update' role='button' />
                 </div>
-                <div>
+                <div onClick={() => { delid(id); }}>
                     <RiDeleteBin6Line className='delete' role='button' />
                 </div>
             </div>

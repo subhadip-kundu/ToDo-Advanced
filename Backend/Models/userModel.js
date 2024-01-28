@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        require: [true, 'Email is require'],
-        trim: true,
-        unique: true
+        required: [true, 'Email is require'],
     },
     username: {
         type: String,
@@ -13,15 +11,18 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        requires: [true, 'Body is required'],
+        required: [true, 'Body is required'],
     },
-    list:[
+    list: [
         {
-            type:mongoose.Types.ObjectId,
-            ref:"List",
+            type: mongoose.Types.ObjectId,
+            ref: "List",
         }
     ]
-});
+},
+    {
+        timestamps: true 
+    });
 
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);  

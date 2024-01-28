@@ -4,18 +4,27 @@ const bcrypt = require("bcryptjs")
 
 // Registation
 
+// Registation
 router.post("/register", async (req, res) => {
     try {
         const { email, username, password } = req.body;
-        const hashPassword = bcrypt.hashSync(password)
+
+        const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+        if (existingUser) {
+            return res.status(200).json({ message: "User with this email or username already exists" });
+        }
+
+        const hashPassword = bcrypt.hashSync(password);
         const user = new User({ email, username, password: hashPassword });
-        await user.save().then(() =>
-            res.status(200).json({ user: user })
-        )
+
+        await user.save();
+        return res.status(200).json({ message: "Sign Up successfull" });
     } catch (error) {
-        res.status(500).json({ message: "User Already Exists" });
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
     }
-})
+});
+
 
 
 // SIGN IN
@@ -23,12 +32,12 @@ router.post("/register", async (req, res) => {
 router.post("/signin", async (req, res) => {
     try {
         if (!req.body.email || !req.body.password) {
-            return res.status(400).json({ message: "Email and password are required" });
+            return res.status(400).json({ message: "Email and password are required!" });
         }
 
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
-            return res.status(400).json({ message: "Please sign up first" });
+            return res.status(400).json({ message: "Please sign up first!" });
         }
 
         const isPasswordCorrect = bcrypt.compareSync(

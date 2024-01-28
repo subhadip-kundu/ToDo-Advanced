@@ -1,33 +1,56 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import './Signup.css'
+
+
+
+
 
 import signup from '../../assets/signup.png'
 
 const Signup = () => {
+
+    const history = useNavigate();
+
     const [Inputs, setInputs] = useState({
         email: "",
         username: "",
         password: ""
-    })
-    const change = async (e) => {
-        await axios.post("https://localhost:9134/api/v1")
+    });
+
+    const change = (e) => {
         const { name, value } = e.target;
         setInputs({ ...Inputs, [name]: value })
-    }
-    const submit = (e) => {
+    };
+
+    const submit = async (e) => {
         e.preventDefault();
-        console.log(Inputs);
-        setInputs ({
-            email: "",
-            username: "",
-            password: ""
-        });
-    }
+        try {
+            const response = await axios.post("http://localhost:9134/api/v1/register", Inputs);
+            if (response.data.message == "User with this email or username already exists") {
+                toast.error("User with this email or username already exists !");
+            }
+            if (response.data.message == "Sign Up successfull") {
+                toast.success("Sign Up successfull");
+                setInputs({
+                    email: "",
+                    username: "",
+                    password: ""
+                });
+                history("/signin");
+            }
+        } catch (error) {
+            console.error("Axios Error:", error);
+        }
+    };
+
     return (
         <div className="signup">
             <Container>
+                <ToastContainer autoClose={2500} />
                 <Row className='form-wrapper'>
                     <Col xs={12} md={6}>
                         <Form className='d-flex flex-column justify-content-center h-100 gap-3 custom-form-style'>

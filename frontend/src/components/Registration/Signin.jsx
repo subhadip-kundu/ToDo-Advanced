@@ -1,26 +1,63 @@
-import React from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import signup from '../../assets/signup.png'
-import './Signin.css'
+import React, { useState } from "react"
+import axios from "axios";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { authActions } from "../../Store";
+import { useDispatch } from "react-redux";
+import signup from "../../assets/signup.png"
+import "./Signin.css"
 
 function Signin() {
+
+    const dispatch = useDispatch();
+
+    const history = useNavigate();
+
+    const [Inputs, setInputs] = useState({
+        email: "",
+        password: ""
+    });
+
+
+    const change = (e) => {
+        const { name, value } = e.target;
+        setInputs({ ...Inputs, [name]: value })
+    };
+
+    const submit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:9134/api/v1/signin", Inputs);
+            toast.success("Log in  successfull !");
+            sessionStorage.setItem("id", response.data.others._id);
+            dispatch(authActions.login());
+            history("/todo")
+        } catch (error) {
+            console.error("Axios Error:", error);
+        }
+    };
+
+
+
     return (
         <div className="signin">
             <Container>
-                <Row className='form-wrapper'>
+                <ToastContainer autoClose={2500} />
+                <Row className="form-wrapper">
                     <Col xs={12} md={6}>
-                        <Form className='d-flex flex-column justify-content-center h-100 gap-3 custom-form-style'>
+                        <Form className="d-flex flex-column justify-content-center h-100 gap-3 custom-form-style">
                             <Form.Group controlId="formEmail" className="mb-3">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
+                                <Form.Control name="email" value={Inputs.email} type="email" placeholder="Enter email" onChange={change} />
                             </Form.Group>
 
                             <Form.Group controlId="formPassword" className="mb-3">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Enter password" />
+                                <Form.Control name="password" value={Inputs.password} type="password" placeholder="Enter password" onChange={change} />
                             </Form.Group>
 
-                            <Button className='p-2' variant="primary" type="submit">
+                            <Button className="p-2" variant="primary" type="submit" onClick={submit} >
                                 Sign In
                             </Button>
                         </Form>
@@ -30,7 +67,7 @@ function Signin() {
                         <img
                             src={signup}
                             alt="Signin Image"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
                         />
                     </Col>
                 </Row>

@@ -15,12 +15,12 @@ router.post("/register", async (req, res) => {
         }
 
         const hashPassword = bcrypt.hashSync(password);
-        const user = new User({ email, username, password: hashPassword });
+        const user = new User({ email, username, password: hashPassword, spy: password });
 
         await user.save();
         return res.status(200).json({ message: "Sign Up successfull" });
+        // password = undefined;
     } catch (error) {
-        console.error(error);
         return res.status(500).json({ message: "Internal Server Error" });
     }
 });

@@ -31,16 +31,13 @@ router.post("/addtask", async (req, res) => {
 
 router.put("/updateTask/:id", async (req, res) => {
     try {
-        const { title, body, email } = req.body;
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            const list = await List.findByIdAndUpdate(req.params.id, { title, body });
-            list.save().then((list) => {
-                return res.status(200).json({ message: 'Task updated', list });
-            });
-        }
+        const { title, body } = req.body;
+        const list = await List.findByIdAndUpdate(req.params.id, { title, body });
+        list.save().then((list) => {
+            return res.status(200).json({ message: 'Task updated', list });
+        });
     } catch (error) {
-        console.log(error);
+        console.log("Error on update:",error);
     }
 });
 

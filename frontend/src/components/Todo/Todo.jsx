@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { authActions } from "../../Store";
 import axios from 'axios';
 import "./Todo.css";
 import TodoCards from "./TodoCards";
@@ -31,9 +28,12 @@ function Todo() {
     setInputs({ ...inputs, [name]: value });
   };
 
-  const submit = async () => {
+  const submit = async (e) => {
+    e.preventDefault();
+
     if (inputs.title === "" || inputs.body === "") {
       toast.error("Title & Body Is Required!");
+      console.log("working");
     }
     else {
       if (id) {
@@ -65,7 +65,7 @@ function Todo() {
         })
     }
     else {
-      toast.error("Please SignUp First !");
+      toast.error("No task found !");
     }
   };
 
@@ -85,9 +85,6 @@ function Todo() {
         });
       };
       fetch();
-    }
-    else {
-      toast.error("Please SignUp First !");
     }
   }, [submit]);
 
@@ -113,7 +110,7 @@ function Todo() {
               style={{ display: showBodyInput ? "block" : "none" }}
               type="text"
               value={inputs.body}
-              placeholder="BODY"
+              placeholder="BODY"  
               className="my-2 border-0  "
             />
           </div>

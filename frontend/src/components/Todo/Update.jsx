@@ -1,19 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
 
 function Update({ display, update }) {
 
-  const [Inputes, setInputes] = useState({ title: update.title, body: update.body });
+  useEffect(() => {
+    if (update) {
+      setInputes({ title: update.title || "", body: update.body || "" });
+    }
+  }, [update]);
+
+
+  const [Inputes, setInputes] = useState({ title: "", body: "" });
 
   const change = (e) => {
     const { name, value } = e.target;
     setInputes({ ...Inputes, [name]: value })
   }
 
-  const  submit = async() => {
-    await axios.put(`http://localhost:9134/api/v2/updateTask:${id}`)
-    display("none");
+  const submit = async () => {
+    try {
+      await axios.put(`http://localhost:9134/api/v2/updateTask/${update._id}`, Inputes).then(() => {
+        toast.success("Task Updated !");
+        display("none");
+      });
+    } catch (error) {
+      console.log("On Update: ", error);
+    }
+
+
   }
 
   return (

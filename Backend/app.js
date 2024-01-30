@@ -19,6 +19,8 @@ const PORT = process.env.PORT || 9134;
 // Use JSON parsing middleware
 app.use(express.json())
 
+/*
+
 // Define root route
 app.get('/', (req, res) => {
     res.send('WELCOME !!!');
@@ -28,6 +30,8 @@ app.get('/', (req, res) => {
 app.get('/ping', (req, res) => {
     res.send('Pong');
 })
+
+*/
 
 // Use routes for API versioning
 app.use("/api/v1", auth);

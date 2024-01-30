@@ -6,13 +6,18 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
 import { authActions } from '../../Store';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+    
+    const history = useNavigate();
+
     const dispatch = useDispatch();
     const isLoggedin = useSelector((state) => state.isLoggedin);
     const logout = () => {
         sessionStorage.clear("id");
         dispatch(authActions.logout()); 
+        history('/');
     }
     return (
         <div style={{ height: "60px" }} className='bg-light'>

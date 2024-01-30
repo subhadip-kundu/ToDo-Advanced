@@ -9,7 +9,7 @@ import signup from '../../assets/signup.png';
 
 const Signup = () => {
 
-    const HOST = "https://to-do-advanced-rho.vercel.app";
+    const HOST = "http://localhost:9134";
 
     const history = useNavigate();
 
@@ -66,7 +66,7 @@ const Signup = () => {
             if (response.data.message === 'User with this email or username already exists') {
                 toast.error('User with this email or username already exists!');
             }
-            if (response.data.message === 'Sign Up successful') {
+            if (response.data.message === 'Sign Up successfull') {
                 toast.success('Sign Up successful');
                 setInputs({
                     email: '',

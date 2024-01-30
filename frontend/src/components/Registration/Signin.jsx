@@ -10,7 +10,7 @@ import "./Signin.css"
 
 function Signin() {
 
-    const HOST = "https://to-do-advanced-rho.vercel.app";
+    const HOST = "http://localhost:9134";
 
     const dispatch = useDispatch();
 
@@ -32,11 +32,12 @@ function Signin() {
         try {
             const response = await axios.post(`${HOST}/api/v1/signin`, Inputs);
             toast.success("Log in  successfull !");
+            console.log(response.data.others._id);
             sessionStorage.setItem("id", response.data.others._id);
             dispatch(authActions.login());
             history("/todo")
         } catch (error) {
-            console.error("Axios Error:", error);
+            console.error("Axios Error on sign in:", error);
         }
     };
 

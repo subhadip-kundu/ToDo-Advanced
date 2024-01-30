@@ -9,14 +9,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-let id = sessionStorage.getItem("id");
+let id = sessionStorage.getItem('id');
 
 let toUpdateArray = [];
 
 
 function Todo() {
 
-  const HOST = "https://to-do-advanced-rho.vercel.app";
+  const HOST = "http://localhost:9134";
 
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [array, setArray] = useState([]);
@@ -36,7 +36,6 @@ function Todo() {
 
     if (inputs.title === "" || inputs.body === "") {
       toast.error("Title & Body Is Required!");
-      console.log("working");
     }
     else {
       if (id) {

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 function Update({ display, update }) {
 
-  const HOST = "https://to-do-advanced-rho.vercel.app/"
+  const HOST = "http://localhost:9134"
 
   useEffect(() => {
     if (update) {

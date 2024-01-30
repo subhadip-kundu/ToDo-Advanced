@@ -2,48 +2,78 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
-import './Signup.css'
+import { useNavigate } from 'react-router-dom';
+import './Signup.css';
 
-
-
-
-
-import signup from '../../assets/signup.png'
+import signup from '../../assets/signup.png';
 
 const Signup = () => {
-
     const history = useNavigate();
 
     const [Inputs, setInputs] = useState({
-        email: "",
-        username: "",
-        password: ""
+        email: '',
+        username: '',
+        password: '',
     });
+
+    const validateEmail = (email) => {
+        // Regular expression for a valid email address
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
+    const validateUsername = (username) => {
+        // Regular expression for a valid username (allowing only alphanumeric characters and at least 5 characters)
+        const regex = /^[a-zA-Z0-9]{5,}$/;
+        return regex.test(username);
+    };
+
+    const validatePassword = (password) => {
+        // Regular expression for a valid password (at least 8 characters, one uppercase letter, one lowercase letter, and one number)
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        return regex.test(password);
+    };
 
     const change = (e) => {
         const { name, value } = e.target;
-        setInputs({ ...Inputs, [name]: value })
+        setInputs({ ...Inputs, [name]: value });
     };
 
     const submit = async (e) => {
         e.preventDefault();
+        const { email, username, password } = Inputs;
+
+        if (!validateEmail(email)) {
+            toast.error('Please enter a valid email address');
+            return;
+        }
+
+        if (!validateUsername(username)) {
+            toast.error('Username must be at least 5 characters and can only contain alphanumeric characters');
+            return;
+        }
+
+        if (!validatePassword(password)) {
+            toast.error('Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, and one number');
+            return;
+        }
+
         try {
-            const response = await axios.post("http://localhost:9134/api/v1/register", Inputs);
-            if (response.data.message == "User with this email or username already exists") {
-                toast.error("User with this email or username already exists !");
+            const response = await axios.post('http://localhost:9134/api/v1/register', Inputs);
+            if (response.data.message === 'User with this email or username already exists') {
+                toast.error('User with this email or username already exists!');
             }
-            if (response.data.message == "Sign Up successfull") {
-                toast.success("Sign Up successfull");
+            if (response.data.message === 'Sign Up successful') {
+                toast.success('Sign Up successful');
                 setInputs({
-                    email: "",
-                    username: "",
-                    password: ""
+                    email: '',
+                    username: '',
+                    password: '',
                 });
-                history("/signin");
+                history('/signin');
             }
         } catch (error) {
-            console.error("Axios Error:", error);
+            console.error('Axios Error:', error);
         }
     };
 
@@ -51,7 +81,7 @@ const Signup = () => {
         <div className="signup">
             <Container>
                 <ToastContainer autoClose={2500} />
-                <Row className='form-wrapper'>
+                <Row className="form-wrapper">
                     <Col xs={12} md={6}>
                         <Form className='d-flex flex-column justify-content-center h-100 gap-3 custom-form-style'>
                             <Form.Group controlId="formEmail" className="mb-3">
@@ -73,14 +103,6 @@ const Signup = () => {
                                 Sign Up
                             </Button>
                         </Form>
-                    </Col>
-
-                    <Col xs={12} md={5}>
-                        <img
-                            src={signup}
-                            alt="Signup Image"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
                     </Col>
                 </Row>
             </Container>

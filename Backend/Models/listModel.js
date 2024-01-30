@@ -11,6 +11,7 @@ const listSchema = new mongoose.Schema({
     body: {
         type: String,
         requires: [true, 'Body is required'],
+        trim: true,
     },
     user: [
         {

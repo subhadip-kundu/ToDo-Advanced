@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 
 function Update({ display, update }) {
 
+  const HOST = "https://to-do-advanced-rho.vercel.app/"
+
   useEffect(() => {
     if (update) {
       setInputes({ title: update.title || "", body: update.body || "" });
@@ -20,7 +22,7 @@ function Update({ display, update }) {
 
   const submit = async () => {
     try {
-      await axios.put(`http://localhost:9134/api/v2/updateTask/${update._id}`, Inputes).then(() => {
+      await axios.put(`${HOST}/api/v2/updateTask/${update._id}`, Inputes).then(() => {
         toast.success("Task Updated !");
         display("none");
       });

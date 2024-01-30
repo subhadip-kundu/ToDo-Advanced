@@ -8,6 +8,9 @@ import './Signup.css';
 import signup from '../../assets/signup.png';
 
 const Signup = () => {
+
+    const HOST = "https://to-do-advanced-rho.vercel.app";
+
     const history = useNavigate();
 
     const [Inputs, setInputs] = useState({
@@ -59,7 +62,7 @@ const Signup = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:9134/api/v1/register', Inputs);
+            const response = await axios.post(`${HOST}/api/v1/register`, Inputs);
             if (response.data.message === 'User with this email or username already exists') {
                 toast.error('User with this email or username already exists!');
             }
@@ -103,6 +106,13 @@ const Signup = () => {
                                 Sign Up
                             </Button>
                         </Form>
+                    </Col>
+                    <Col xs={12} md={5}>
+                        <img
+                            src={signup}
+                            alt="Signup Image"
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
                     </Col>
                 </Row>
             </Container>

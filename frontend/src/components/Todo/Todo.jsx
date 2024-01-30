@@ -15,6 +15,9 @@ let toUpdateArray = [];
 
 
 function Todo() {
+
+  const HOST = "https://to-do-advanced-rho.vercel.app";
+
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [array, setArray] = useState([]);
   const [showBodyInput, setShowBodyInput] = useState(false);
@@ -37,7 +40,7 @@ function Todo() {
     }
     else {
       if (id) {
-        await axios.post("http://localhost:9134/api/v2/addtask",
+        await axios.post(`${HOST}/api/v2/addtask`,
           { title: inputs.title, body: inputs.body, id: id })
           .then((response) => {
             console.log(response);
@@ -59,7 +62,7 @@ function Todo() {
   const del = async (CardId) => {
     if (CardId) {
       await axios
-        .delete(`http://localhost:9134/api/v2/deleteTask/${CardId}`, { data: { id: id } })
+        .delete(`${HOST}/api/v2/deleteTask/${CardId}`, { data: { id: id } })
         .then(() => {
           toast.success("Your Task Is Deleted !");
         })
@@ -80,7 +83,7 @@ function Todo() {
   useEffect(() => {
     if (id) {
       const fetch = async () => {
-        await axios.get(`http://localhost:9134/api/v2/getTasks/${id}`).then((response) => {
+        await axios.get(`${HOST}/api/v2/getTasks/${id}`).then((response) => {
           setArray(response.data.tasks);
         });
       };

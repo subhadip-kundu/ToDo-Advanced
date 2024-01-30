@@ -32,7 +32,7 @@ function Signin() {
         try {
             const response = await axios.post(`${HOST}/api/v1/signin`, Inputs);
             toast.success("Log in  successfull !");
-            console.log(response.data.others._id);
+            // console.log(response.data.others._id);
             sessionStorage.setItem("id", response.data.others._id);
             dispatch(authActions.login());
             history("/todo")

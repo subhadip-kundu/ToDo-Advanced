@@ -10,7 +10,7 @@ import "./Signin.css"
 
 function Signin() {
 
-    const HOST = "http://localhost:9134";
+    const HOST = "https://todo-advenced.onrender.com";
 
     const dispatch = useDispatch();
 
@@ -27,17 +27,21 @@ function Signin() {
         setInputs({ ...Inputs, [name]: value })
     };
 
+
+
     const submit = async (e) => {
         e.preventDefault();
         try {
+            // If all validations pass, proceed with the API call
             const response = await axios.post(`${HOST}/api/v1/signin`, Inputs);
-            toast.success("Log in  successfull !");
-            // console.log(response.data.others._id);
+            toast.success("Login successful!");
             sessionStorage.setItem("id", response.data.others._id);
             dispatch(authActions.login());
-            history("/todo")
+            history("/");
+            window.location.reload();
         } catch (error) {
-            console.error("Axios Error on sign in:", error);
+            toast.error('Please enter a valid email & password');
+            console.error("Axios Error on sign-in:", error);
         }
     };
 

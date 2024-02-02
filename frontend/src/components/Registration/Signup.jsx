@@ -9,7 +9,7 @@ import signup from '../../assets/signup.png';
 
 const Signup = () => {
 
-    const HOST = "http://localhost:9134";
+    const HOST = "https://todo-advenced.onrender.com";
 
     const history = useNavigate();
 
@@ -32,10 +32,11 @@ const Signup = () => {
     };
 
     const validatePassword = (password) => {
-        // Regular expression for a valid password (at least 8 characters, one uppercase letter, one lowercase letter, and one number)
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        // Regular expression for a valid password (at least 8 characters, one uppercase letter, one special character)
+        const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,}$/;
         return regex.test(password);
     };
+
 
     const change = (e) => {
         const { name, value } = e.target;
@@ -57,7 +58,7 @@ const Signup = () => {
         }
 
         if (!validatePassword(password)) {
-            toast.error('Password must be at least 8 characters and contain at least one uppercase letter, one lowercase letter, and one number');
+            toast.error('Password must be at least 8 characters long, contain at least one uppercase letter, and at least one special character.');
             return;
         }
 

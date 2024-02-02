@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 function Update({ display, update }) {
 
-  const HOST = "http://localhost:9134"
+  const HOST = "https://todo-advenced.onrender.com"
 
   useEffect(() => {
     if (update) {

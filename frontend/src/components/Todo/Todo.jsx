@@ -16,7 +16,7 @@ let toUpdateArray = [];
 
 function Todo() {
 
-  const HOST = "http://localhost:9134";
+  const HOST = "https://todo-advenced.onrender.com";
 
   const [inputs, setInputs] = useState({ title: "", body: "" });
   const [array, setArray] = useState([]);
